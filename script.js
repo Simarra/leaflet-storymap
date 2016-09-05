@@ -22,8 +22,14 @@ function initMap() {
 
   // This customizes link to view source code; add your own GitHub repository
   map.attributionControl
-  .setPrefix('View <a href="http://github.com/jackdougherty/leaflet-storymap" target="_blank">code on GitHub</a>, created with <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
+  .setPrefix('View <a href="https://github.com/Simarra/leaflet-storymap" target="_blank">code on GitHub</a>, created with <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
 
+  
+  //Créer la liste des icones.
+  var mesIcons = ['markers/images/library-15.png','markers/images/college-11.png','markers/images/building-15.png','markers/images/garden-15.png']
+  
+  
+  
   // This loads the GeoJSON map data file from a local folder
   $.getJSON('map.geojson', function(data) {
     var geojson = L.geoJson(data, {
@@ -31,13 +37,17 @@ function initMap() {
         (function(layer, properties) {
           // This creates numerical icons to match the ID numbers
           // OR remove the next 6 lines for default blue Leaflet markers
-          var numericMarker = L.ExtraMarkers.icon({
-            icon: 'fa-number',
-            number: feature.properties['id'],
+          var MyIcon = L.icon({
+            iconUrl: mesIcons[feature.properties['id']-1],
             markerColor: 'blue'
           });
-          layer.setIcon(numericMarker);
+          layer.setIcon(MyIcon);
+		  console.log(mesIcons[feature.properties['id']]);
 
+		  
+		  
+		  
+		  
           // This creates the contents of each chapter from the GeoJSON data. Unwanted items can be removed, and new ones can be added
           var chapter = $('<p></p>', {
             text: feature.properties['chapter'],
